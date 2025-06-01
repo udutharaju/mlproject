@@ -1,16 +1,16 @@
-import sys
+import sys# module allows you to interct os,make fesatures availble for ur prog
 from dataclasses import dataclass
 
 import numpy as np 
 import pandas as pd
-from sklearn.compose import ColumnTransformer
+from sklearn.compose import ColumnTransformer#used to create pipeline
 from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder,StandardScaler
 
 from src.exception import CustomException
 from src.logger import logging
-import os
+import os #allows you to interct os,allows to performs various tasks
 
 from src.utils import save_object
 

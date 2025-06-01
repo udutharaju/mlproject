@@ -1,3 +1,4 @@
+#data ingestion is the file for reading the data from datbases and etc
 import os
 import sys
 from src.exception import CustomException
@@ -12,10 +13,11 @@ from src.components.data_transformation import DataTransformationConfig
 
 from src.components.model_trainer import ModelTrainerConfig
 from src.components.model_trainer import ModelTrainer
+#dataclass for auto generate methods like __init__ etc primarly used to store data
 @dataclass
 class DataIngestionConfig:
-    train_data_path: str=os.path.join('artifacts',"train.csv")
-    test_data_path: str=os.path.join('artifacts',"test.csv")
+    train_data_path: str=os.path.join('artifacts',"train.csv")#data class helps where to save the train,test,raw data 
+    test_data_path: str=os.path.join('artifacts',"test.csv")#artifact is folder 
     raw_data_path: str=os.path.join('artifacts',"data.csv")
 
 class DataIngestion:
@@ -30,14 +32,14 @@ class DataIngestion:
 
             os.makedirs(os.path.dirname(self.ingestion_config.train_data_path),exist_ok=True)
 
-            df.to_csv(self.ingestion_config.raw_data_path,index=False,header=True)
+            df.to_csv(self.ingestion_config.raw_data_path,index=False,header=True)# raw data to csv file
 
             logging.info("Train test split initiated")
             train_set,test_set=train_test_split(df,test_size=0.2,random_state=42)
 
-            train_set.to_csv(self.ingestion_config.train_data_path,index=False,header=True)
+            train_set.to_csv(self.ingestion_config.train_data_path,index=False,header=True)#saving the train file
 
-            test_set.to_csv(self.ingestion_config.test_data_path,index=False,header=True)
+            test_set.to_csv(self.ingestion_config.test_data_path,index=False,header=True)#saving the test file
 
             logging.info("Inmgestion of the data iss completed")
 
@@ -48,7 +50,8 @@ class DataIngestion:
             )
         except Exception as e:
             raise CustomException(e,sys)
-        
+
+#initiate and  run 
 if __name__=="__main__":
     obj=DataIngestion()
     train_data,test_data=obj.initiate_data_ingestion()
